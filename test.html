@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체육시설 점검표</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>체육시설 통합 매뉴얼</h2>
+        <ul>
+            <li><a href="#" onclick="loadContent('update')">업데이트 현황</a></li>
+            <li><a href="#" onclick="loadContent('facility')">시설현황</a></li>
+            <li>
+                <a href="#" onclick="toggleMenu('guide')">시설안내</a>
+                <ul id="guide" class="hidden">
+                    <li><a href="#" onclick="loadContent('cheongjuSwimming')">청주수영장</a></li>
+                    <li><a href="#" onclick="loadContent('purmi')">푸르미스포츠센터</a></li>
+                    <li><a href="#" onclick="loadContent('youngun_sportscenter')">영운국민체육센터</a></li>
+                    <li><a href="#">복대국민체육센터</a></li>
+                    <li><a href="#">가경국민체육센터</a></li>
+                </ul>
+            </li>
+            <li><a href="#" onclick="loadContent('manual')">매뉴얼</a></li>
+            <li><a href="#" onclick="loadContent('voc')">VOC</a></li>
+        </ul>
+        <div class="sidebar-footer">
+        <p>v1.08</p>
+        <p>creator: 박영규, 박현수</p>
+        </div>
+    </div>
+    
+    <div id="main-content" class="main-content">
+        
+        <div id="content-area">
+            <h3>여기에 클릭된 메뉴의 내용이 표시됩니다.</h3>
+        </div>
+    </div>
+
+<script>
+
+function loadContent(section) {
+    var contentArea = document.getElementById("content-area");
+
+    switch (section) {
+        case 'update':
+            fetch("https://raw.githubusercontent.com/cjsisul/manual/main/updatecontainer.html")
+            .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+            })
+            .then(data => contentArea.innerHTML = data)
+            .catch(error => {
+            contentArea.innerHTML = '<p>콘텐츠를 불러오는 데 실패했습니다.</p>';
+            console.error('Error loading the content:', error);
+            });
+            break;
+        case 'facility':
+            fetch("https://raw.githubusercontent.com/cjsisul/manual/main/facility.html")
+            .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.text();
+            })
+            .then(data => contentArea.innerHTML = data)
+            .catch(error => {
+            contentArea.innerHTML = '<p>콘텐츠를 불러오는 데 실패했습니다.</p>';
+            console.error('Error loading the content:', error);
+            });
+            break;
+        case 'cheongjuSwimming':
+            fetch("https://raw.githubusercontent.com/cjsisul/manual/main/cheongju_swimming_pool_guide.html")
+            .then(response => response.text())
+            .then(data => contentArea.innerHTML = data)
+            .catch(error => {
+                contentArea.innerHTML = '<p>콘텐츠를 불러오는 데 실패했습니다.</p>';
+                console.error('Error loading the content:', error);
+            });
+            break;
+        case 'purmi':
+            fetch("https://raw.githubusercontent.com/cjsisul/manual/main/purmi_guide.html")
+            .then(response => response.text())
+            .then(data => contentArea.innerHTML = data)
+            .catch(error => {
+                contentArea.innerHTML = '<p>콘텐츠를 불러오는 데 실패했습니다.</p>';
+                console.error('Error loading the content:', error);
+            });
+            break;
+        case 'youngun_sportscenter':
+            fetch("https://raw.githubusercontent.com/cjsisul/manual/main/youngun_sportscenter_guide.html")
+            .then(response => response.text())
+            .then(data => contentArea.innerHTML = data)
+            .catch(error => {
+                contentArea.innerHTML = '<p>콘텐츠를 불러오는 데 실패했습니다.</p>';
+                console.error('Error loading the content:', error);
+            });
+            break;
+        case 'manual':
+            contentArea.innerHTML = '<h2>매뉴얼</h2><p>체육시설 사용 매뉴얼입니다.</p>';
+            break;
+        case 'voc':
+            contentArea.innerHTML = '<h2>VOC</h2><p>고객의 소리를 확인하세요.</p>';
+            break;
+        default:
+            contentArea.innerHTML = '<p>올바른 섹션이 아닙니다.</p>';
+    }
+}
+function toggleMenu(menuId) {
+    var menu = document.getElementById(menuId);
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        }
+        else {
+        menu.classList.add('hidden');
+        }
+}
+    </script>
+        <table>
+            <thead>
+                <tr>
+                    <th>상태</th>
+                    <th>타입</th>
+                    <th>제목</th>
+                    <th>작성일시</th>
+                    <th>임시저장목록</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td><span class="status">목록형</span></td>
+                    <td>저수조 위생점검</td>
+                    <td>2024-01-21</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><span class="status green">서식형</span></td>
+                    <td>시설 보수보고서</td>
+                    <td>2024-01-21</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button>&laquo;</button>
+            <button>&lt;</button>
+            <span>1</span>
+            <button>&gt;</button>
+            <button>&raquo;</button>
+        </div>
+    </div>
+</body>
+</html>
